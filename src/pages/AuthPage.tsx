@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { useAuthStore } from '@/store/authStore';
-import { LoginCredentials, RegisterCredentials } from '@/types';
+import type { LoginCredentials, RegisterCredentials } from '@/types';
 
 type AuthMode = 'login' | 'register' | 'forgot-password';
 
@@ -51,7 +51,7 @@ export const AuthPage: React.FC = () => {
             <LoginForm
               onSubmit={handleLogin}
               isLoading={isLoading}
-              error={error}
+              error={error || undefined}
               onForgotPassword={handleForgotPassword}
               onSwitchToRegister={() => setMode('register')}
             />
@@ -61,7 +61,7 @@ export const AuthPage: React.FC = () => {
             <RegisterForm
               onSubmit={handleRegister}
               isLoading={isLoading}
-              error={error}
+              error={error || undefined}
               onSwitchToLogin={() => setMode('login')}
             />
           )}

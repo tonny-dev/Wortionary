@@ -9,7 +9,13 @@ export const WordDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      <Header user={user} />
+      <Header 
+        user={user ? {
+          name: `${user.firstName} ${user.lastName}`,
+          initials: `${user.firstName[0]}${user.lastName[0]}`,
+          avatar: user.avatar
+        } : undefined}
+      />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
         <div className="text-center py-12">

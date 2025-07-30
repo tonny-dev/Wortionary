@@ -1,6 +1,6 @@
 import React, { memo, useId } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { TagListProps } from '@/types';
+import type { TagListProps } from '@/types';
 import { cn, getAriaLabel } from '@/lib/utils';
 
 const TagList = memo<TagListProps>(({ 
@@ -49,7 +49,7 @@ const TagList = memo<TagListProps>(({
         role="list"
         aria-labelledby={sectionId}
       >
-        {tags.map((tag, index) => (
+        {tags.map((tag) => (
           <div key={tag.id} role="listitem">
             <Badge
               onClick={() => handleTagClick(tag)}

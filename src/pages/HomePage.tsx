@@ -8,7 +8,7 @@ import { SearchStats } from '@/components/SearchStats';
 import { useSearchStore } from '@/store/searchStore';
 import { useAuthStore } from '@/store/authStore';
 import { DictionaryService } from '@/services/dictionaryService';
-import { Tag } from '@/types';
+import type { Tag } from '@/types';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -67,16 +67,15 @@ export const HomePage: React.FC = () => {
     handleSearch(tag.label);
   };
 
-  const handleHeaderSearch = (query: string) => {
-    handleSearch(query);
-  };
-
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
       <Header 
-        onSearch={handleHeaderSearch}
-        user={user}
+        user={user ? {
+          name: `${user.firstName} ${user.lastName}`,
+          initials: `${user.firstName[0]}${user.lastName[0]}`,
+          avatar: user.avatar
+        } : undefined}
       />
 
       {/* Hero Section */}

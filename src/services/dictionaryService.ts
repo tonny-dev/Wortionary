@@ -1,5 +1,5 @@
-import { dictionaryApi, wordnikApi, handleApiResponse, handleApiError } from './api';
-import { WordDefinition, SearchResult, SearchFilters } from '@/types';
+import { dictionaryApi, handleApiResponse, handleApiError } from './api';
+import type { WordDefinition, SearchResult, SearchFilters } from '@/types';
 
 export class DictionaryService {
   // Search for word definitions using Free Dictionary API
@@ -8,7 +8,7 @@ export class DictionaryService {
       const response = await dictionaryApi.get(`/entries/en/${encodeURIComponent(word.toLowerCase())}`);
       return handleApiResponse(response);
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 

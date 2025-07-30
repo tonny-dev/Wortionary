@@ -1,5 +1,5 @@
-import { backendApi, handleApiResponse, handleApiError } from './api';
-import { User, LoginCredentials, RegisterCredentials } from '@/types';
+import { handleApiError } from './api';
+import type { User, LoginCredentials, RegisterCredentials } from '@/types';
 import Cookies from 'js-cookie';
 
 export class AuthService {
@@ -19,7 +19,7 @@ export class AuthService {
 
       return { user: mockResponse.user, token: mockResponse.token };
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -35,7 +35,7 @@ export class AuthService {
 
       return { user: mockResponse.user, token: mockResponse.token };
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -96,7 +96,7 @@ export class AuthService {
     } catch (error) {
       this.clearTokens();
       this.clearUser();
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -114,12 +114,12 @@ export class AuthService {
       
       return updatedUser;
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
   // Change password
-  static async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  static async changePassword(_currentPassword: string, _newPassword: string): Promise<void> {
     try {
       // Mock implementation - replace with actual API call
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -130,12 +130,12 @@ export class AuthService {
       //   newPassword
       // });
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
   // Request password reset
-  static async requestPasswordReset(email: string): Promise<void> {
+  static async requestPasswordReset(_email: string): Promise<void> {
     try {
       // Mock implementation - replace with actual API call
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -143,7 +143,7 @@ export class AuthService {
       // In real implementation:
       // await backendApi.post('/auth/forgot-password', { email });
     } catch (error) {
-      handleApiError(error);
+      return handleApiError(error);
     }
   }
 
@@ -242,7 +242,7 @@ export class AuthService {
     throw new Error('Registration failed');
   }
 
-  private static async mockRefreshToken(refreshToken: string): Promise<{
+  private static async mockRefreshToken(_refreshToken: string): Promise<{
     token: string;
     refreshToken: string;
   }> {

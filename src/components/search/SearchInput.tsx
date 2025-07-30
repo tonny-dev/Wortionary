@@ -3,7 +3,7 @@ import { Search, X, Loader2, Filter, Mic } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { SearchInputProps, SearchFilters } from '@/types';
+import type { SearchInputProps, SearchFilters } from '@/types';
 import { cn } from '@/lib/utils';
 import { useSearchStore } from '@/store/searchStore';
 

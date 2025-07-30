@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { SearchState, SearchResult, SearchFilters } from '@/types';
+import type { SearchState, SearchFilters } from '@/types';
 import { DictionaryService } from '@/services/dictionaryService';
 
 interface SearchStore extends SearchState {

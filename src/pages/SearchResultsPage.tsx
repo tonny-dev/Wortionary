@@ -50,8 +50,11 @@ export const SearchResultsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black">
       <Header 
-        onSearch={handleSearch}
-        user={user}
+        user={user ? {
+          name: `${user.firstName} ${user.lastName}`,
+          initials: `${user.firstName[0]}${user.lastName[0]}`,
+          avatar: user.avatar
+        } : undefined}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">

@@ -1,8 +1,13 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { SearchInput } from './SearchInput';
-import { HeroSectionProps } from '@/types';
-import { cn, getImageProps } from '@/lib/utils';
-import { useSearch } from '@/hooks/useSearch';
+import { cn } from '@/lib/utils';
+
+interface HeroSectionProps {
+  onSearch: (query: string) => void;
+  backgroundImage?: string;
+  title?: string;
+  subtitle?: string;
+}
 
 const HeroSection = memo<HeroSectionProps>(({ 
   onSearch,
@@ -10,13 +15,6 @@ const HeroSection = memo<HeroSectionProps>(({
   title = 'Search for words, phrases and meanings',
   subtitle
 }) => {
-  const { query, isLoading, setQuery } = useSearch();
-
-  const handleSearch = (searchQuery: string) => {
-    setQuery(searchQuery);
-    onSearch(searchQuery);
-  };
-
   return (
     <section 
       className="relative w-full max-w-6xl mx-auto rounded-xl overflow-hidden mt-6 sm:mt-8"
@@ -25,10 +23,15 @@ const HeroSection = memo<HeroSectionProps>(({
       {/* Background Image */}
       <div className="relative h-64 sm:h-80 md:h-96">
         <img 
-          {...getImageProps(backgroundImage, 'Hero background')}
+          src={backgroundImage}
+          alt="Hero background"
           className="w-full h-full object-cover"
           width={1200}
           height={400}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+            e.currentTarget.parentElement!.style.background = 'linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%)';
+          }}
         />
         
         {/* Overlay */}
@@ -62,10 +65,8 @@ const HeroSection = memo<HeroSectionProps>(({
         {/* Search Input */}
         <div className="w-full max-w-2xl">
           <SearchInput
-            initialValue={query}
-            onSearch={handleSearch}
+            onSearch={onSearch}
             placeholder="Search for words, phrases, meanings..."
-            isLoading={isLoading}
           />
         </div>
 
@@ -74,7 +75,7 @@ const HeroSection = memo<HeroSectionProps>(({
           {['Popular', 'Recent', 'Trending'].map((action) => (
             <button
               key={action}
-              onClick={() => handleSearch(action.toLowerCase())}
+              onClick={() => onSearch(action.toLowerCase())}
               className={cn(
                 "px-3 py-1 sm:px-4 sm:py-2 text-sm font-medium",
                 "bg-white/10 text-white rounded-full",

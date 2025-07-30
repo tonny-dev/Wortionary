@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AuthState, User, LoginCredentials, RegisterCredentials } from '@/types';
+import type { AuthState, User, LoginCredentials, RegisterCredentials } from '@/types';
 import { AuthService } from '@/services/authService';
 import toast from 'react-hot-toast';
 
@@ -29,7 +29,7 @@ export const useAuthStore = create<AuthStore>()(
         set({ isLoading: true, error: null });
         
         try {
-          const { user, token } = await AuthService.login(credentials);
+          const { user } = await AuthService.login(credentials);
           
           set({
             user,
@@ -57,7 +57,7 @@ export const useAuthStore = create<AuthStore>()(
         set({ isLoading: true, error: null });
         
         try {
-          const { user, token } = await AuthService.register(credentials);
+          const { user } = await AuthService.register(credentials);
           
           set({
             user,
